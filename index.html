@@ -27,33 +27,9 @@
     background: var(--ivory);
     color: var(--ink);
     font-family: var(--body);
-    cursor: none;
+
     overflow-x: hidden;
   }
-
-  /* CUSTOM CURSOR */
-  .cursor {
-    position: fixed;
-    width: 10px; height: 10px;
-    background: var(--ink);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
-  }
-  .cursor-ring {
-    position: fixed;
-    width: 36px; height: 36px;
-    border: 1.5px solid var(--ink);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-    transform: translate(-50%, -50%);
-    transition: all 0.18s ease;
-    opacity: 0.5;
-  }
-  body:hover .cursor { opacity: 1; }
 
   /* NAV */
   nav {
@@ -559,10 +535,6 @@
 </head>
 <body>
 
-<!-- Cursor -->
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
 <!-- NAV -->
 <nav>
   <a href="#hero" class="nav-logo">ShotbyFermzy</a>
@@ -736,45 +708,6 @@
 </footer>
 
 <script>
-  // Custom cursor
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
-  });
-
-  function animRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(animRing);
-  }
-  animRing();
-
-  document.querySelectorAll('a, button, .gallery-item').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.style.width = '18px';
-      cursor.style.height = '18px';
-      cursor.style.background = 'var(--gold)';
-      ring.style.width = '54px';
-      ring.style.height = '54px';
-      ring.style.borderColor = 'var(--gold)';
-    });
-    el.addEventListener('mouseleave', () => {
-      cursor.style.width = '10px';
-      cursor.style.height = '10px';
-      cursor.style.background = 'var(--ink)';
-      ring.style.width = '36px';
-      ring.style.height = '36px';
-      ring.style.borderColor = 'var(--ink)';
-    });
-  });
-
   // Animated counters
   const counterItems = document.querySelectorAll('.counter-item');
   const counterObserver = new IntersectionObserver((entries) => {
