@@ -312,67 +312,157 @@
     transform: translateY(0);
   }
 
+  /* PROJECTS */
+  #projects {
+    background: var(--ivory);
+    padding: 7rem 4rem;
+  }
+  .project-card {
+    border-top: 1px solid rgba(0,0,0,0.1);
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+  .project-card:last-of-type {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+  .project-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 0;
+    transition: opacity 0.3s;
+  }
+  .project-card:hover .project-card-header { opacity: 0.7; }
+  .project-card-info {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .project-num {
+    font-family: var(--display);
+    font-size: 1.4rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+  }
+  .project-title {
+    font-family: var(--display);
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .project-meta {
+    font-family: var(--body);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-top: 0.4rem;
+  }
+  .project-toggle {
+    font-family: var(--serif);
+    font-size: 2.5rem;
+    color: var(--ink);
+    line-height: 1;
+    transition: transform 0.4s ease;
+    user-select: none;
+    width: 40px;
+    text-align: center;
+  }
+  .project-toggle.open {
+    transform: rotate(45deg);
+    color: var(--gold);
+  }
+  .project-images {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+  }
+  .project-images.open {
+    max-height: 3000px;
+  }
+  .project-masonry {
+    columns: 3;
+    column-gap: 12px;
+    padding: 1.5rem 0 3rem;
+  }
+  .project-img-item {
+    break-inside: avoid;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .project-img-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .project-img-item:hover img { transform: scale(1.04); }
+
+  @media (max-width: 900px) {
+    #projects { padding: 5rem 1.8rem; }
+    .project-masonry { columns: 2; }
+    .project-card-info { gap: 1rem; }
+  }
+
   /* ABOUT */
   #about {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: center;
+    padding: 0;
     background: var(--ivory);
   }
-
-  .about-image-wrap {
+  .about-bg-wrap {
     position: relative;
-  }
-  .about-image-wrap img {
     width: 100%;
-    aspect-ratio: 3/4;
+    min-height: 90vh;
+    overflow: hidden;
+  }
+  .about-bg-img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    object-position: center top;
+    object-position: center 20%;
+    position: absolute;
+    inset: 0;
     display: block;
   }
-  .about-accent-box {
-    position: absolute;
-    bottom: -2rem; right: -2rem;
-    width: 60%; height: 60%;
-    border: 2px solid var(--gold);
-    z-index: -1;
+  .about-overlay {
+    position: relative;
+    z-index: 2;
+    min-height: 90vh;
+    display: flex;
+    align-items: flex-end;
+    background: linear-gradient(
+      to top,
+      rgba(10,10,10,0.75) 0%,
+      rgba(10,10,10,0.25) 40%,
+      rgba(10,10,10,0.05) 70%,
+      transparent 100%
+    );
+    padding: 5rem 4rem;
   }
-  .about-accent-num {
-    position: absolute;
-    top: -2.5rem; left: -1rem;
-    font-family: var(--display);
-    font-size: 7rem;
-    color: var(--cream);
-    line-height: 1;
-    z-index: -1;
-    letter-spacing: -0.02em;
-  }
-
-  .about-content {}
+  .about-overlay-content {}
   .about-body {
     font-family: var(--serif);
-    font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
     line-height: 1.85;
-    color: var(--charcoal);
-    margin-bottom: 2.4rem;
+    color: rgba(245,240,232,0.85);
+    margin-bottom: 1rem;
   }
   .about-stats {
-    display: flex; gap: 3rem; margin-top: 2.5rem;
-    border-top: 1px solid rgba(0,0,0,0.1);
+    display: flex; gap: 3rem; margin-top: 2rem;
     padding-top: 2rem;
   }
   .stat-num {
     font-family: var(--display);
     font-size: 3rem;
-    color: var(--ink);
+    color: var(--cream);
     line-height: 1;
   }
   .stat-label {
     font-size: 0.72rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--mid);
+    color: rgba(245,240,232,0.5);
     margin-top: 0.3rem;
   }
 
@@ -505,14 +595,8 @@
     }
     .gallery-item { margin-bottom: 8px; }
 
-    #about {
-      grid-template-columns: 1fr;
-      gap: 3rem;
-    }
-    .about-accent-box { display: none; }
-
-    .gallery-header { flex-direction: column; align-items: flex-start; }
-    .about-stats { gap: 2rem; }
+    .about-overlay { padding: 3rem 1.8rem; }
+    .about-stats { gap: 2rem; flex-wrap: wrap; }
 
     #contact { padding: 5rem 1.8rem; }
     footer { padding: 1.5rem 1.8rem; }
@@ -526,6 +610,7 @@
   <a href="#hero" class="nav-logo">ShotbyFermzy</a>
   <ul class="nav-links">
     <li><a href="#gallery">Work</a></li>
+    <li><a href="https://www.behance.net/shotbyfermzy" target="_blank" rel="noopener">Portfolio</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -640,34 +725,79 @@
   </div>
 </section>
 
+<!-- PROJECTS -->
+<section id="projects-section">
+  <span class="section-label reveal">Selected Projects</span>
+  <h2 class="section-title reveal">PORTFOLIO</h2>
+
+  <!-- PROJECT CARD: Mrs. Kodaolu Birthday -->
+  <div class="project-card reveal" onclick="toggleProject('kodaolu')">
+    <div class="project-card-header">
+      <div class="project-card-info">
+        <span class="project-num">01</span>
+        <div>
+          <h3 class="project-title">Mrs. Kodaolu Birthday</h3>
+          <p class="project-meta">Portrait &nbsp;·&nbsp; Studio &nbsp;·&nbsp; 2026</p>
+        </div>
+      </div>
+      <div class="project-toggle" id="toggle-kodaolu">+</div>
+    </div>
+    <div class="project-images" id="project-kodaolu">
+      <div class="project-masonry">
+        <div class="project-img-item">
+          <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/bade5c246133395.69bcf0acaac96.jpg" alt="Mrs Kodaolu 1" loading="lazy" />
+        </div>
+        <div class="project-img-item">
+          <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/3b52fc246133395.69bcf0acaa8b1.jpg" alt="Mrs Kodaolu 2" loading="lazy" />
+        </div>
+        <div class="project-img-item">
+          <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/ec9beb246133395.69bcf0acab811.jpg" alt="Mrs Kodaolu 3" loading="lazy" />
+        </div>
+        <div class="project-img-item">
+          <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/cf75b5246133395.69bcf0acab056.jpg" alt="Mrs Kodaolu 4" loading="lazy" />
+        </div>
+        <div class="project-img-item">
+          <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/4af9bf246133395.69bcf0acab44b.jpg" alt="Mrs Kodaolu 5" loading="lazy" />
+        </div>
+        <div class="project-img-item">
+          <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/e911d6246133395.69bcf0acabbef.jpg" alt="Mrs Kodaolu 6" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD MORE PROJECTS BELOW THIS LINE -->
+
+</section>
+
 <!-- ABOUT -->
 <section id="about">
-  <div class="about-image-wrap reveal">
-    <div class="about-accent-num">04</div>
-    <img src="IMG_0724-1.jpg" alt="Fermzy" />
-    <div class="about-accent-box"></div>
-  </div>
-  <div class="about-content reveal" style="transition-delay:0.2s">
-    <span class="section-label">The Photographer</span>
-    <h2 class="section-title">ABOUT<br/>SHOTBYFERMZY</h2>
-    <p class="about-body">
-      ShotbyFermzy is a Nigeria-based photographer and visual storyteller with four years of experience crafting images that go beyond the frame. Rooted in African culture and driven by a bold editorial eye, ShotbyFermzy's work blends high-fashion sensibility with raw human truth — turning every shoot into a narrative that resonates far beyond the shutter click.
-    </p>
-    <p class="about-body" style="font-size:1rem; color: var(--mid);">
-      From vibrant wax-print backdrops to the quiet power of a gaze, every image is intentional, cultural, and unmistakably ShotbyFermzy. Available for international brand campaigns, editorial features, and model portfolio shoots.
-    </p>
-    <div class="about-stats">
-      <div>
-        <div class="stat-num">4+</div>
-        <div class="stat-label">Years Experience</div>
-      </div>
-      <div>
-        <div class="stat-num">∞</div>
-        <div class="stat-label">Stories Told</div>
-      </div>
-      <div>
-        <div class="stat-num">1</div>
-        <div class="stat-label">Unique Vision</div>
+  <div class="about-bg-wrap reveal">
+    <img src="20260106_181030.jpg" alt="ShotbyFermzy — The Photographer" class="about-bg-img" />
+    <div class="about-overlay">
+      <div class="about-overlay-content">
+        <span class="section-label" style="color:rgba(245,240,232,0.6);">The Photographer</span>
+        <h2 class="section-title" style="color:var(--cream); margin-bottom:1.5rem;">ABOUT<br/>SHOTBYFERMZY</h2>
+        <p class="about-body" style="color:rgba(245,240,232,0.85);">
+          ShotbyFermzy is a Nigeria-based photographer and visual storyteller with four years of experience crafting images that go beyond the frame. Rooted in African culture and driven by a bold editorial eye, ShotbyFermzy's work blends high-fashion sensibility with raw human truth — turning every shoot into a narrative that resonates far beyond the shutter click.
+        </p>
+        <p class="about-body" style="font-size:1rem; color:rgba(245,240,232,0.55); margin-top:1rem;">
+          From vibrant wax-print backdrops to the quiet power of a gaze, every image is intentional, cultural, and unmistakably ShotbyFermzy. Available for international brand campaigns, editorial features, and model portfolio shoots.
+        </p>
+        <div class="about-stats" style="border-top:1px solid rgba(245,240,232,0.15);">
+          <div>
+            <div class="stat-num" style="color:var(--cream);">4+</div>
+            <div class="stat-label" style="color:rgba(245,240,232,0.5);">Years Experience</div>
+          </div>
+          <div>
+            <div class="stat-num" style="color:var(--cream);">∞</div>
+            <div class="stat-label" style="color:rgba(245,240,232,0.5);">Stories Told</div>
+          </div>
+          <div>
+            <div class="stat-num" style="color:var(--cream);">1</div>
+            <div class="stat-label" style="color:rgba(245,240,232,0.5);">Unique Vision</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -694,6 +824,22 @@
 </footer>
 
 <script>
+  // Projects toggle
+  function openProjects() {
+    const section = document.getElementById('projects');
+    if (section) {
+      setTimeout(() => section.scrollIntoView({ behavior: 'smooth' }), 100);
+    }
+  }
+  function toggleProject(id) {
+    const images = document.getElementById('project-' + id);
+    const toggle = document.getElementById('toggle-' + id);
+    if (images && toggle) {
+      images.classList.toggle('open');
+      toggle.classList.toggle('open');
+    }
+  }
+
   // Animated counters
   const counterItems = document.querySelectorAll('.counter-item');
   const counterObserver = new IntersectionObserver((entries) => {
