@@ -1,904 +1,313 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ShotbyFermzy — Visual Storyteller</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-<style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShotbyFermzy — Visual Storyteller</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-  :root {
-    --cream: #F5F0E8;
-    --ivory: #FAF7F2;
-    --ink: #0D0D0D;
-    --charcoal: #1A1A1A;
-    --gold: #C9A84C;
-    --rust: #C0392B;
-    --mid: #6B6560;
-    --serif: 'Cormorant Garamond', serif;
-    --display: 'Bebas Neue', sans-serif;
-    --body: 'DM Sans', sans-serif;
-  }
+        :root {
+            --cream: #F5F0E8;
+            --ivory: #FAF7F2;
+            --ink: #0D0D0D;
+            --charcoal: #1A1A1A;
+            --gold: #C9A84C;
+            --mid: #6B6560;
+            --serif: 'Cormorant Garamond', serif;
+            --display: 'Bebas Neue', sans-serif;
+            --body: 'DM Sans', sans-serif;
+        }
 
-  html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; }
 
-  body {
-    background: var(--ivory);
-    color: var(--ink);
-    font-family: var(--body);
+        body {
+            background: var(--ivory);
+            color: var(--ink);
+            font-family: var(--body);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-    overflow-x: hidden;
-  }
+        /* NAVIGATION */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1.6rem 4rem;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        
+        nav.scrolled {
+            background: rgba(250, 247, 242, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 4rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
 
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.6rem 4rem;
-    mix-blend-mode: multiply;
-  }
-  .nav-logo {
-    font-family: var(--display);
-    font-size: 1.6rem;
-    letter-spacing: 0.15em;
-    color: var(--ink);
-    text-decoration: none;
-  }
-  .nav-links {
-    display: flex; gap: 2.4rem; list-style: none;
-  }
-  .nav-links a {
-    font-family: var(--body);
-    font-size: 0.78rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--ink);
-    text-decoration: none;
-    position: relative;
-  }
-  .nav-links a::after {
-    content: '';
-    position: absolute; bottom: -3px; left: 0;
-    width: 0; height: 1px;
-    background: var(--ink);
-    transition: width 0.4s ease;
-  }
-  .nav-links a:hover::after { width: 100%; }
+        .nav-logo {
+            font-family: var(--display);
+            font-size: 1.6rem;
+            letter-spacing: 0.15em;
+            color: var(--ink);
+            text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 2.4rem; list-style: none; }
+        .nav-links a {
+            font-size: 0.75rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--ink);
+            text-decoration: none;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 1px; background: var(--ink);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after { width: 100%; }
 
-  /* HERO */
-  #hero {
-    height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    position: relative;
-    overflow: hidden;
-  }
+        /* HERO SECTION */
+        #hero {
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            background: var(--ivory);
+        }
 
-  .hero-left {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 0 4rem 6rem;
-    position: relative;
-    z-index: 2;
-  }
+        .hero-left {
+            display: flex; flex-direction: column; justify-content: center;
+            padding: 0 10%;
+        }
 
-  .hero-eyebrow {
-    font-family: var(--body);
-    font-size: 0.72rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--mid);
-    margin-bottom: 1.2rem;
-    opacity: 0;
-    animation: fadeUp 1s 0.3s forwards;
-  }
+        .hero-eyebrow {
+            font-size: 0.7rem; letter-spacing: 0.4em;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 1rem;
+        }
 
-  .hero-name {
-    font-family: var(--display);
-    font-size: clamp(5rem, 10vw, 9rem);
-    line-height: 0.9;
-    letter-spacing: 0.04em;
-    color: var(--ink);
-    opacity: 0;
-    animation: fadeUp 1s 0.5s forwards;
-  }
+        .hero-name {
+            font-family: var(--display);
+            font-size: clamp(4rem, 8vw, 8.5rem);
+            line-height: 0.85; letter-spacing: 0.02em;
+            color: var(--ink);
+        }
 
-  .hero-tagline {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: clamp(1rem, 2vw, 1.4rem);
-    color: var(--mid);
-    margin-top: 1.6rem;
-    max-width: 340px;
-    line-height: 1.6;
-    opacity: 0;
-    animation: fadeUp 1s 0.8s forwards;
-  }
+        .hero-tagline {
+            font-family: var(--serif); font-style: italic;
+            font-size: 1.2rem; color: var(--mid);
+            margin-top: 2rem; max-width: 380px;
+        }
 
-  .hero-scroll {
-    margin-top: 3rem;
-    display: flex; align-items: center; gap: 1rem;
-    opacity: 0;
-    animation: fadeUp 1s 1.1s forwards;
-  }
-  .hero-scroll span {
-    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mid);
-  }
-  .scroll-line {
-    width: 60px; height: 1px; background: var(--mid);
-    position: relative; overflow: hidden;
-  }
-  .scroll-line::after {
-    content: '';
-    position: absolute; top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: var(--ink);
-    animation: scrollAnim 2s 1.5s infinite;
-  }
+        .hero-right { position: relative; overflow: hidden; }
+        .hero-img-wrap {
+            position: absolute; inset: 0;
+            clip-path: polygon(10% 0%, 100% 0%, 100% 100%, 0% 100%);
+        }
+        .hero-img-wrap img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
 
-  .hero-right {
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-img-wrap {
-    position: absolute; inset: 0;
-    clip-path: polygon(8% 0%, 100% 0%, 100% 100%, 0% 100%);
-  }
-  .hero-img-wrap img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    transform: scale(1.08);
-    animation: zoomOut 1.8s 0.2s ease forwards;
-  }
-  .hero-counter {
-    position: absolute;
-    bottom: 2rem; left: 2rem;
-    font-family: var(--display);
-    font-size: 5rem;
-    color: rgba(255,255,255,0.15);
-    line-height: 1;
-    pointer-events: none;
-  }
+        /* COUNTERS */
+        .counters-wrap {
+            background: var(--ink);
+            padding: 4rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            text-align: center;
+        }
+        .counter-item { padding: 2rem; opacity: 0; transform: translateY(20px); transition: 0.8s; }
+        .counter-item.visible { opacity: 1; transform: translateY(0); }
+        .counter-num { 
+            font-family: var(--display); font-size: 4rem; color: var(--cream); 
+        }
+        .counter-label {
+            display: block; font-size: 0.7rem; text-transform: uppercase;
+            letter-spacing: 0.2em; color: var(--mid); margin-top: 0.5rem;
+        }
 
-  /* COUNTERS */
-  .counters-wrap {
-    background: var(--ink);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 3.5rem 4rem;
-    gap: 0;
-    flex-wrap: wrap;
-  }
-  .counter-item {
-    flex: 1;
-    min-width: 160px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 1.5rem 2rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-  .counter-item.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .counter-item:nth-child(1) { transition-delay: 0s; }
-  .counter-item:nth-child(3) { transition-delay: 0.15s; }
-  .counter-item:nth-child(5) { transition-delay: 0.3s; }
-  .counter-item:nth-child(7) { transition-delay: 0.45s; }
-  .counter-num-wrap {
-    display: flex;
-    align-items: flex-start;
-    line-height: 1;
-  }
-  .counter-num {
-    font-family: var(--display);
-    font-size: clamp(3.5rem, 7vw, 6rem);
-    color: var(--cream);
-    line-height: 1;
-    letter-spacing: -0.02em;
-  }
-  .counter-plus {
-    font-family: var(--display);
-    font-size: clamp(1.8rem, 3.5vw, 3rem);
-    color: var(--gold);
-    line-height: 1;
-    margin-top: 0.3rem;
-  }
-  .counter-label {
-    font-family: var(--body);
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(245,240,232,0.45);
-    margin-top: 0.6rem;
-  }
-  .counter-divider {
-    width: 1px;
-    height: 60px;
-    background: rgba(245,240,232,0.12);
-    flex-shrink: 0;
-  }
-  @media (max-width: 700px) {
-    .counters-wrap { padding: 2.5rem 1.5rem; gap: 0; }
-    .counter-divider { display: none; }
-    .counter-item { min-width: 45%; padding: 1.2rem 1rem; }
-  }
+        /* GALLERY (Masonry Layout) */
+        section { padding: 8rem 4rem; }
+        .section-title {
+            font-family: var(--display); font-size: clamp(3rem, 6vw, 5rem);
+            margin-bottom: 4rem;
+        }
 
-  /* SECTION SHARED */
-  section { padding: 7rem 4rem; }
+        .gallery-grid {
+            columns: 3 300px;
+            column-gap: 1.5rem;
+        }
+        .gallery-item {
+            break-inside: avoid; margin-bottom: 1.5rem;
+            position: relative; overflow: hidden;
+            background: #eee;
+        }
+        .gallery-item img {
+            width: 100%; display: block; transition: 0.6s transform;
+        }
+        .gallery-item:hover img { transform: scale(1.05); }
 
-  .section-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--mid);
-    margin-bottom: 0.6rem;
-    display: block;
-  }
-  .section-title {
-    font-family: var(--display);
-    font-size: clamp(2.8rem, 6vw, 5rem);
-    letter-spacing: 0.04em;
-    line-height: 1;
-    color: var(--ink);
-    margin-bottom: 3rem;
-  }
+        /* PROJECT CARDS */
+        .project-card {
+            border-top: 1px solid rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        .project-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 2.5rem 0;
+        }
+        .project-title { font-family: var(--display); font-size: 2rem; }
+        .project-images {
+            max-height: 0; overflow: hidden;
+            transition: max-height 1s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .project-images.open { max-height: 2000px; padding-bottom: 3rem; }
+        .project-masonry { columns: 3 250px; gap: 15px; }
+        .project-masonry img { width: 100%; margin-bottom: 15px; display: block; }
 
-  /* GALLERY */
-  #gallery { background: var(--cream); padding-top: 5rem; }
+        /* FOOTER */
+        footer {
+            background: var(--charcoal); color: var(--cream);
+            padding: 4rem; display: flex; justify-content: space-between;
+            font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+        }
 
-  .gallery-header {
-    display: flex; align-items: flex-end; justify-content: space-between;
-    margin-bottom: 3rem;
-    flex-wrap: wrap; gap: 1rem;
-  }
+        /* ANIMATIONS */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 1s all ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  .gallery-grid {
-    columns: 3;
-    column-gap: 12px;
-  }
-
-  .gallery-item {
-    overflow: hidden;
-    position: relative;
-    background: #ddd;
-    break-inside: avoid;
-    margin-bottom: 12px;
-    display: block;
-  }
-
-  .gallery-item img {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-  .gallery-item:hover img { transform: scale(1.04); }
-
-  .gallery-item-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%);
-    opacity: 0;
-    transition: opacity 0.4s;
-    display: flex; align-items: flex-end; padding: 1.2rem;
-  }
-  .gallery-item:hover .gallery-item-overlay { opacity: 1; }
-  .gallery-item-label {
-    font-family: var(--serif);
-    font-style: italic;
-    color: white;
-    font-size: 0.9rem;
-    letter-spacing: 0.05em;
-  }
-
-  /* Reveal animation */
-  .reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.9s ease, transform 0.9s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* PROJECTS */
-  #projects {
-    background: var(--ivory);
-    padding: 7rem 4rem;
-  }
-  .project-card {
-    border-top: 1px solid rgba(0,0,0,0.1);
-    margin-bottom: 0;
-    cursor: pointer;
-  }
-  .project-card:last-of-type {
-    border-bottom: 1px solid rgba(0,0,0,0.1);
-  }
-  .project-card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 2rem 0;
-    transition: opacity 0.3s;
-  }
-  .project-card:hover .project-card-header { opacity: 0.7; }
-  .project-card-info {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-  }
-  .project-num {
-    font-family: var(--display);
-    font-size: 1.4rem;
-    color: var(--gold);
-    letter-spacing: 0.1em;
-  }
-  .project-title {
-    font-family: var(--display);
-    font-size: clamp(1.4rem, 3vw, 2.2rem);
-    letter-spacing: 0.04em;
-    color: var(--ink);
-    line-height: 1;
-  }
-  .project-meta {
-    font-family: var(--body);
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--mid);
-    margin-top: 0.4rem;
-  }
-  .project-toggle {
-    font-family: var(--serif);
-    font-size: 2.5rem;
-    color: var(--ink);
-    line-height: 1;
-    transition: transform 0.4s ease;
-    user-select: none;
-    width: 40px;
-    text-align: center;
-  }
-  .project-toggle.open {
-    transform: rotate(45deg);
-    color: var(--gold);
-  }
-  .project-images {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.8s cubic-bezier(0.77, 0, 0.175, 1);
-  }
-  .project-images.open {
-    max-height: 3000px;
-  }
-  .project-masonry {
-    columns: 3;
-    column-gap: 12px;
-    padding: 1.5rem 0 3rem;
-  }
-  .project-img-item {
-    break-inside: avoid;
-    margin-bottom: 12px;
-    overflow: hidden;
-  }
-  .project-img-item img {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: transform 0.6s ease;
-  }
-  .project-img-item:hover img { transform: scale(1.04); }
-
-  @media (max-width: 900px) {
-    #projects { padding: 5rem 1.8rem; }
-    .project-masonry { columns: 2; }
-    .project-card-info { gap: 1rem; }
-  }
-
-  /* ABOUT */
-  #about {
-    padding: 0;
-    background: var(--ivory);
-  }
-  .about-bg-wrap {
-    position: relative;
-    width: 100%;
-    min-height: 90vh;
-    overflow: hidden;
-  }
-  .about-bg-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 20%;
-    position: absolute;
-    inset: 0;
-    display: block;
-  }
-  .about-overlay {
-    position: relative;
-    z-index: 2;
-    min-height: 90vh;
-    display: flex;
-    align-items: flex-end;
-    background: linear-gradient(
-      to top,
-      rgba(10,10,10,0.75) 0%,
-      rgba(10,10,10,0.25) 40%,
-      rgba(10,10,10,0.05) 70%,
-      transparent 100%
-    );
-    padding: 5rem 4rem;
-  }
-  .about-overlay-content {}
-  .about-body {
-    font-family: var(--serif);
-    font-size: clamp(1rem, 1.6vw, 1.2rem);
-    line-height: 1.85;
-    color: rgba(245,240,232,0.85);
-    margin-bottom: 1rem;
-  }
-  .about-stats {
-    display: flex; gap: 3rem; margin-top: 2rem;
-    padding-top: 2rem;
-  }
-  .stat-num {
-    font-family: var(--display);
-    font-size: 3rem;
-    color: var(--cream);
-    line-height: 1;
-  }
-  .stat-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(245,240,232,0.5);
-    margin-top: 0.3rem;
-  }
-
-  /* CONTACT */
-  #contact {
-    background: var(--ink);
-    color: var(--cream);
-    text-align: center;
-    padding: 8rem 4rem;
-    position: relative;
-    overflow: hidden;
-  }
-  #contact::before {
-    content: 'SHOTBYFERMZY';
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: var(--display);
-    font-size: clamp(8rem, 18vw, 18rem);
-    color: rgba(255,255,255,0.03);
-    pointer-events: none;
-    white-space: nowrap;
-    letter-spacing: 0.06em;
-  }
-  #contact .section-label { color: var(--gold); }
-  #contact .section-title { color: var(--cream); margin-bottom: 1rem; }
-  .contact-sub {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 1.2rem;
-    color: rgba(245,240,232,0.6);
-    max-width: 500px;
-    margin: 0 auto 3.5rem;
-    line-height: 1.7;
-  }
-  .contact-btn {
-    display: inline-flex; align-items: center; gap: 1rem;
-    background: transparent;
-    border: 1.5px solid var(--gold);
-    color: var(--gold);
-    font-family: var(--body);
-    font-size: 0.78rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 1.1rem 2.8rem;
-    position: relative;
-    overflow: hidden;
-    transition: color 0.4s;
-  }
-  .contact-btn::before {
-    content: '';
-    position: absolute; top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: var(--gold);
-    transition: left 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-    z-index: -1;
-  }
-  .contact-btn:hover::before { left: 0; }
-  .contact-btn:hover { color: var(--ink); }
-
-  .contact-instagram {
-    margin-top: 2rem;
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    color: rgba(245,240,232,0.35);
-    text-transform: uppercase;
-  }
-
-  /* FOOTER */
-  footer {
-    background: var(--charcoal);
-    padding: 2rem 4rem;
-    display: flex;
-    justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 1rem;
-  }
-  footer p {
-    font-size: 0.72rem;
-    color: rgba(245,240,232,0.3);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-  footer a {
-    font-size: 0.72rem;
-    color: var(--gold);
-    text-decoration: none;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes zoomOut {
-    from { transform: scale(1.08); }
-    to { transform: scale(1); }
-  }
-  @keyframes scrollAnim {
-    0% { left: -100%; }
-    100% { left: 100%; }
-  }
-
-  /* MOBILE */
-  @media (max-width: 900px) {
-    nav { padding: 1.4rem 1.8rem; }
-    .nav-links { gap: 1.4rem; }
-
-    #hero { grid-template-columns: 1fr; }
-    .hero-right {
-      position: absolute; inset: 0;
-      z-index: 0;
-    }
-    .hero-img-wrap { clip-path: none; }
-    .hero-img-wrap img { opacity: 0.35; }
-    .hero-left {
-      position: relative; z-index: 2;
-      padding: 0 2rem 5rem;
-      justify-content: flex-end;
-    }
-    .hero-tagline { color: var(--charcoal); }
-
-    section { padding: 5rem 1.8rem; }
-
-    .gallery-grid {
-      columns: 2;
-      column-gap: 8px;
-    }
-    .gallery-item { margin-bottom: 8px; }
-
-    .about-overlay { padding: 3rem 1.8rem; }
-    .about-stats { gap: 2rem; flex-wrap: wrap; }
-
-    #contact { padding: 5rem 1.8rem; }
-    footer { padding: 1.5rem 1.8rem; }
-  }
-</style>
+        /* MOBILE */
+        @media (max-width: 900px) {
+            nav { padding: 1.2rem 1.5rem; }
+            #hero { grid-template-columns: 1fr; text-align: center; }
+            .hero-left { padding: 5rem 1.5rem; align-items: center; }
+            .hero-right { display: none; }
+            section { padding: 5rem 1.5rem; }
+            footer { flex-direction: column; gap: 2rem; text-align: center; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="#hero" class="nav-logo">ShotbyFermzy</a>
-  <ul class="nav-links">
-    <li><a href="#gallery">Work</a></li>
-    <li><a href="https://www.behance.net/shotbyfermzy" target="_blank" rel="noopener">Portfolio</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+<nav id="main-nav">
+    <a href="#" class="nav-logo">ShotbyFermzy</a>
+    <ul class="nav-links">
+        <li><a href="#gallery">Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
-  <div class="hero-left">
-    <p class="hero-eyebrow">Photography &amp; Visual Storytelling</p>
-    <h1 class="hero-name">SHOT<br/>BY<br/>FERMZY</h1>
-    <p class="hero-tagline">We will make your picture speak more than a thousand words.</p>
-    <div class="hero-scroll">
-      <div class="scroll-line"></div>
-      <span>Scroll to explore</span>
+    <div class="hero-left">
+        <p class="hero-eyebrow">Visual Storytelling</p>
+        <h1 class="hero-name">SHOT<br/>BY<br/>FERMZY</h1>
+        <p class="hero-tagline">Making your pictures speak more than a thousand words.</p>
     </div>
-  </div>
-  <div class="hero-right">
-    <div class="hero-img-wrap">
-      <img src="IMG_0655-1.jpg" alt="Fermzy Photography" />
+    <div class="hero-right">
+        <div class="hero-img-wrap">
+            <img src="IMG_0655-1.jpg" alt="Photography Cover" />
+        </div>
     </div>
-    <div class="hero-counter">01</div>
-  </div>
 </section>
 
-<!-- COUNTERS -->
 <div class="counters-wrap">
-  <div class="counter-item">
-    <div class="counter-num-wrap">
-      <span class="counter-num" data-target="4">0</span>
-      <span class="counter-plus">+</span>
+    <div class="counter-item" data-target="4">
+        <span class="counter-num">0</span><span class="counter-num">+</span>
+        <span class="counter-label">Years Experience</span>
     </div>
-    <span class="counter-label">Years of Experience</span>
-  </div>
-  <div class="counter-divider"></div>
-  <div class="counter-item">
-    <div class="counter-num-wrap">
-      <span class="counter-num" data-target="10">0</span>
-      <span class="counter-plus">+</span>
+    <div class="counter-item" data-target="50">
+        <span class="counter-num">0</span><span class="counter-num">+</span>
+        <span class="counter-label">Projects Completed</span>
     </div>
-    <span class="counter-label">Projects Completed</span>
-  </div>
-  <div class="counter-divider"></div>
-  <div class="counter-item">
-    <div class="counter-num-wrap">
-      <span class="counter-num" data-target="100">0</span>
-      <span class="counter-plus">%</span>
+    <div class="counter-item" data-target="100">
+        <span class="counter-num">0</span><span class="counter-num">%</span>
+        <span class="counter-label">Creative Vision</span>
     </div>
-    <span class="counter-label">Creative Dedication</span>
-  </div>
-  <div class="counter-divider"></div>
-  <div class="counter-item">
-    <div class="counter-num-wrap">
-      <span class="counter-num" data-target="1">0</span>
-      <span class="counter-plus"></span>
-    </div>
-    <span class="counter-label">Unique Vision</span>
-  </div>
 </div>
 
-<!-- GALLERY -->
 <section id="gallery">
-  <div class="gallery-header reveal">
-    <div>
-      <span class="section-label">Selected Works</span>
-      <h2 class="section-title" style="margin-bottom:0">THE WORK</h2>
+    <h2 class="section-title reveal">Selected Works</h2>
+    <div class="gallery-grid">
+        <div class="gallery-item reveal"><img src="IMG_0655-1.jpg" alt="Work"></div>
+        <div class="gallery-item reveal"><img src="IMG_0721-1.jpg" alt="Work"></div>
+        <div class="gallery-item reveal"><img src="IMG_0723-1.jpg" alt="Work"></div>
+        <div class="gallery-item reveal"><img src="IMG_0724-1.jpg" alt="Work"></div>
+        <div class="gallery-item reveal"><img src="IMG_0729-1.jpg" alt="Work"></div>
+        <div class="gallery-item reveal"><img src="IMG_0730-1.jpg" alt="Work"></div>
     </div>
-    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--mid);max-width:260px;line-height:1.7;font-size:1rem;">
-      Four years. Countless stories. One lens that never lies.
-    </p>
-  </div>
-  <div class="gallery-grid">
-    <div class="gallery-item reveal">
-      <img src="IMG_0655-1.jpg" alt="Portrait in red" />
-      <div class="gallery-item-overlay"><span class="gallery-item-label">Portrait in Red</span></div>
-    </div>
-    <div class="gallery-item reveal" style="transition-delay:0.1s">
-      <img src="IMG_0721-1.jpg" alt="Ivory Editorial" />
-      <div class="gallery-item-overlay"><span class="gallery-item-label">Ivory Editorial</span></div>
-    </div>
-    <div class="gallery-item reveal" style="transition-delay:0.15s">
-      <img src="IMG_0723-1.jpg" alt="The Hat" />
-      <div class="gallery-item-overlay"><span class="gallery-item-label">The Hat</span></div>
-    </div>
-    <div class="gallery-item reveal" style="transition-delay:0.2s">
-      <img src="IMG_0724-1.jpg" alt="Downcast" />
-      <div class="gallery-item-overlay"><span class="gallery-item-label">Downcast</span></div>
-    </div>
-    <div class="gallery-item reveal" style="transition-delay:0.25s">
-      <img src="IMG_0729-1.jpg" alt="Black Brim" />
-      <div class="gallery-item-overlay"><span class="gallery-item-label">Black Brim</span></div>
-    </div>
-    <div class="gallery-item reveal" style="transition-delay:0.3s">
-      <img src="IMG_0730-1.jpg" alt="Open Sky" />
-      <div class="gallery-item-overlay"><span class="gallery-item-label">Open Sky</span></div>
-    </div>
-    <div class="gallery-item reveal" style="transition-delay:0.35s">
-      <img src="EDN_0338-1.jpg" alt="Golden Smile" />
-      <div class="gallery-item-overlay"><span class="gallery-item-label">Golden Smile</span></div>
-    </div>
-    <div class="gallery-item reveal" style="transition-delay:0.4s">
-      <img src="EDN_0977-2.jpg" alt="Gele" />
-      <div class="gallery-item-overlay"><span class="gallery-item-label">Gele</span></div>
-    </div>
-    <div class="gallery-item reveal" style="transition-delay:0.45s">
-      <img src="EDN_0989-1.jpg" alt="Radiance" />
-      <div class="gallery-item-overlay"><span class="gallery-item-label">Radiance</span></div>
-    </div>
-    <div class="gallery-item reveal" style="transition-delay:0.5s">
-      <img src="EDN_0997-1.jpg" alt="Devotion" />
-      <div class="gallery-item-overlay"><span class="gallery-item-label">Devotion</span></div>
-    </div>
-  </div>
 </section>
 
-<!-- PROJECTS -->
-<section id="projects-section">
-  <span class="section-label reveal">Selected Projects</span>
-  <h2 class="section-title reveal">PORTFOLIO</h2>
-
-  <!-- PROJECT CARD: Mrs. Kodaolu Birthday -->
-  <div class="project-card reveal" onclick="toggleProject('kodaolu')">
-    <div class="project-card-header">
-      <div class="project-card-info">
-        <span class="project-num">01</span>
-        <div>
-          <h3 class="project-title">Mrs. Kodaolu Birthday</h3>
-          <p class="project-meta">Portrait &nbsp;·&nbsp; Studio &nbsp;·&nbsp; 2026</p>
+<section id="projects">
+    <h2 class="section-title reveal">Portfolios</h2>
+    
+    <div class="project-card reveal" onclick="toggleProject('kodaolu')">
+        <div class="project-header">
+            <h3 class="project-title">Mrs. Kodaolu Birthday</h3>
+            <span id="icon-kodaolu">+</span>
         </div>
-      </div>
-      <div class="project-toggle" id="toggle-kodaolu">+</div>
+        <div class="project-images" id="project-kodaolu">
+            <div class="project-masonry">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/bade5c246133395.69bcf0acaac96.jpg" alt="Birthday 1">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/3b52fc246133395.69bcf0acaa8b1.jpg" alt="Birthday 2">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/ec9beb246133395.69bcf0acab811.jpg" alt="Birthday 3">
+            </div>
+        </div>
     </div>
-    <div class="project-images" id="project-kodaolu">
-      <div class="project-masonry">
-        <div class="project-img-item">
-          <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/bade5c246133395.69bcf0acaac96.jpg" alt="Mrs Kodaolu 1" loading="lazy" />
-        </div>
-        <div class="project-img-item">
-          <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/3b52fc246133395.69bcf0acaa8b1.jpg" alt="Mrs Kodaolu 2" loading="lazy" />
-        </div>
-        <div class="project-img-item">
-          <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/ec9beb246133395.69bcf0acab811.jpg" alt="Mrs Kodaolu 3" loading="lazy" />
-        </div>
-        <div class="project-img-item">
-          <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/cf75b5246133395.69bcf0acab056.jpg" alt="Mrs Kodaolu 4" loading="lazy" />
-        </div>
-        <div class="project-img-item">
-          <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/4af9bf246133395.69bcf0acab44b.jpg" alt="Mrs Kodaolu 5" loading="lazy" />
-        </div>
-        <div class="project-img-item">
-          <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/e911d6246133395.69bcf0acabbef.jpg" alt="Mrs Kodaolu 6" loading="lazy" />
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ADD MORE PROJECTS BELOW THIS LINE -->
-
 </section>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-bg-wrap reveal">
-    <img src="20260106_181030.jpg" alt="ShotbyFermzy — The Photographer" class="about-bg-img" />
-    <div class="about-overlay">
-      <div class="about-overlay-content">
-        <span class="section-label" style="color:rgba(245,240,232,0.6);">The Photographer</span>
-        <h2 class="section-title" style="color:var(--cream); margin-bottom:1.5rem;">ABOUT<br/>SHOTBYFERMZY</h2>
-        <p class="about-body" style="color:rgba(245,240,232,0.85);">
-          ShotbyFermzy is a Nigeria-based photographer and visual storyteller with four years of experience crafting images that go beyond the frame. Rooted in African culture and driven by a bold editorial eye, ShotbyFermzy's work blends high-fashion sensibility with raw human truth — turning every shoot into a narrative that resonates far beyond the shutter click.
-        </p>
-        <p class="about-body" style="font-size:1rem; color:rgba(245,240,232,0.55); margin-top:1rem;">
-          From vibrant wax-print backdrops to the quiet power of a gaze, every image is intentional, cultural, and unmistakably ShotbyFermzy. Available for international brand campaigns, editorial features, and model portfolio shoots.
-        </p>
-        <div class="about-stats" style="border-top:1px solid rgba(245,240,232,0.15);">
-          <div>
-            <div class="stat-num" style="color:var(--cream);">4+</div>
-            <div class="stat-label" style="color:rgba(245,240,232,0.5);">Years Experience</div>
-          </div>
-          <div>
-            <div class="stat-num" style="color:var(--cream);">∞</div>
-            <div class="stat-label" style="color:rgba(245,240,232,0.5);">Stories Told</div>
-          </div>
-          <div>
-            <div class="stat-num" style="color:var(--cream);">1</div>
-            <div class="stat-label" style="color:rgba(245,240,232,0.5);">Unique Vision</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <span class="section-label reveal">Get In Touch</span>
-  <h2 class="section-title reveal">LET'S CREATE<br/>SOMETHING</h2>
-  <p class="contact-sub reveal">
-    Ready to tell your story through a lens that makes every frame unforgettable? Let's talk.
-  </p>
-  <a href="https://instagram.com/fermzyy" target="_blank" rel="noopener" class="contact-btn reveal">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-    Book via Instagram
-  </a>
-  <p class="contact-instagram">@fermzyy</p>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <p>© 2025 ShotbyFermzy — All Rights Reserved</p>
-  <a href="https://instagram.com/fermzyy" target="_blank" rel="noopener">@fermzyy</a>
+<footer id="contact">
+    <p>© 2026 ShotbyFermzy — All Rights Reserved</p>
+    <a href="https://instagram.com/fermzyy" target="_blank">Instagram: @fermzyy</a>
 </footer>
 
 <script>
-  // Projects toggle
-  function openProjects() {
-    const section = document.getElementById('projects');
-    if (section) {
-      setTimeout(() => section.scrollIntoView({ behavior: 'smooth' }), 100);
-    }
-  }
-  function toggleProject(id) {
-    const images = document.getElementById('project-' + id);
-    const toggle = document.getElementById('toggle-' + id);
-    if (images && toggle) {
-      images.classList.toggle('open');
-      toggle.classList.toggle('open');
-    }
-  }
+    // Navigation Scroll Effect
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) nav.classList.add('scrolled');
+        else nav.classList.remove('scrolled');
+    });
 
-  // Animated counters
-  const counterItems = document.querySelectorAll('.counter-item');
-  const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        const numEl = entry.target.querySelector('.counter-num');
-        if (numEl && !numEl.dataset.done) {
-          numEl.dataset.done = true;
-          const target = +numEl.dataset.target;
-          const duration = 1800;
-          const step = target / (duration / 16);
-          let current = 0;
-          const timer = setInterval(() => {
-            current += step;
-            if (current >= target) {
-              current = target;
-              clearInterval(timer);
+    // Project Accordion
+    function toggleProject(id) {
+        const content = document.getElementById('project-' + id);
+        const icon = document.getElementById('icon-' + id);
+        content.classList.toggle('open');
+        icon.textContent = content.classList.contains('open') ? '−' : '+';
+    }
+
+    // Intersection Observer for Reveals and Counters
+    const observerOptions = { threshold: 0.2 };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                
+                // If it's a counter, trigger the number count
+                if (entry.target.classList.contains('counter-item')) {
+                    const target = parseInt(entry.target.getAttribute('data-target'));
+                    const numDisplay = entry.target.querySelector('.counter-num');
+                    let current = 0;
+                    const increment = target / 50;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            numDisplay.innerText = target;
+                            clearInterval(timer);
+                        } else {
+                            numDisplay.innerText = Math.floor(current);
+                        }
+                    }, 30);
+                }
             }
-            numEl.textContent = Math.floor(current);
-          }, 16);
-        }
-      }
-    });
-  }, { threshold: 0.4 });
-  counterItems.forEach(el => counterObserver.observe(el));
+        });
+    }, observerOptions);
 
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.12 });
-  reveals.forEach(el => observer.observe(el));
-
-  // Nav bg on scroll
-  const nav = document.querySelector('nav');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 80) {
-      nav.style.background = 'rgba(250,247,242,0.92)';
-      nav.style.backdropFilter = 'blur(12px)';
-      nav.style.mixBlendMode = 'normal';
-      nav.style.borderBottom = '1px solid rgba(0,0,0,0.06)';
-      nav.style.padding = '1rem 4rem';
-    } else {
-      nav.style.background = 'transparent';
-      nav.style.backdropFilter = 'none';
-      nav.style.mixBlendMode = 'multiply';
-      nav.style.borderBottom = 'none';
-      nav.style.padding = '1.6rem 4rem';
-    }
-  });
- <script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
+    document.querySelectorAll('.reveal, .counter-item').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
